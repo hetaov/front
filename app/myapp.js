@@ -15,15 +15,17 @@ class MyApp extends Component {
                     <input type="text" name="search"/>
                 </div>
                 <div className={"content"}>
-                    <ul>
+                    <div>
                     { words.map((word) => {
                         return (
-                        <li key={word.id}>
-                        {word.text}
-                        </li>
+                        <a key={word.id} href={`/detail/${word.id}`}>
+                            <h2 className={'title'}>{word.text}</h2>
+                            <div className={'desc'}>{word.desc}</div>
+                            <div className={'source'}>来源：{word.source}</div>
+                        </a>
                         )
                     })}
-                    </ul> 
+                    </div> 
                 </div>
             </div>
         )
