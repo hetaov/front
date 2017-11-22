@@ -8,4 +8,8 @@ export default function bootstrap(schema) {
         id: 0, // optional. If omitted, Redux-ORM uses a number sequence starting from 0.
         text: 'Tommi',
     });
+    
+    return {
+        orm: state
+    };
 }

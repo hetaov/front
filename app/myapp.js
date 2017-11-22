@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-    todos,
-} from './selectors';
+    words,
+} from './myselector';
 
 class MyApp extends Component {
     render() {
@@ -18,8 +18,8 @@ class MyApp extends Component {
                     <ul>
                     { words.map((word) => {
                         return (
-                        <li>
-                            word.text
+                        <li key={word.id}>
+                        {word.text}
                         </li>
                         )
                     })}
@@ -31,8 +31,10 @@ class MyApp extends Component {
 }
 
 function stateToProps(state) {
+    console.log(state.orm.Word.items);
     return {
-        words: state.Word.all(),
+        words: words(state),
+        //words: state.orm.Word.all().toRefArray()
     };
 }
 
