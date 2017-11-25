@@ -34,6 +34,9 @@ class MyApp extends Component {
 
 function stateToProps(state) {
     console.log(state.orm.Word.items);
+    fetch('http://127.0.0.1:3000/api/黄枝', (result) => {
+        console.log(result, 'in app ');
+    });
     return {
         words: words(state),
         //words: state.orm.Word.all().toRefArray()
