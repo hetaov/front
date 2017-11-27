@@ -4,24 +4,49 @@ import { connect } from 'react-redux';
 
 import {
     words,
+    items 
 } from './myselector';
 
+import { init, search } from './actions';
+
 class MyApp extends Component {
+
+    constructor(props) {
+      super(props);
+
+      this.state = {
+          title: ''
+      };
+      this.search = this.search.bind(this);
+    }
+
+    componentDidMount() {
+      const { init } = this.props;
+      init();
+    }
+
+    search() {
+      let title = this.state.title;
+      let { search } = this.props;
+      console.log(title, 'in search method');
+      search(title);
+    }
+
     render() {
-        let { words } = this.props;
+        let { words, items } = this.props;
         return (
             <div className={"main"}>
                 <div className={"searchBar"}>
-                    <input type="text" name="search"/>
+                    <input type="text" name="search" onChange={(event) => { this.setState({title: event.target.value})}}/>
+                    <button onClick={this.search}>搜索</button>
                 </div>
                 <div className={"content"}>
                     <div>
-                    { words.map((word) => {
+                    { items.map((item, index) => {
                         return (
-                        <a key={word.id} href={`/detail/${word.id}`}>
-                            <h2 className={'title'}>{word.text}</h2>
-                            <div className={'desc'}>{word.desc}</div>
-                            <div className={'source'}>来源：{word.source}</div>
+                        <a key={index} href={`/detail/${item.subject.value}`}>
+                            <h2 className={'title'}>{item.predicate}</h2>
+                            <div className={'source'}>来源：{item.object}</div>
                         </a>
                         )
                     })}
@@ -33,19 +58,23 @@ class MyApp extends Component {
 }
 
 function stateToProps(state) {
-    console.log(state.orm.Word.items);
-    fetch('http://127.0.0.1:3000/api/黄枝', (result) => {
-        console.log(result, 'in app ');
-    });
     return {
         words: words(state),
-        //words: state.orm.Word.all().toRefArray()
+        items: items(state),
     };
 }
 
 // This maps our action creators to props and binds
 // them to dispatch.
-const dispatchToProps = {
+const dispatchToProps = (dispatch) => {
+    return {
+        init: () => {
+            dispatch(init())
+        },
+        search: (title) => {
+            dispatch(search(title));
+        }
+    }
 };
 
 export default connect(stateToProps, dispatchToProps)(MyApp);

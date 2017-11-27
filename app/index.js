@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 //import { schema } from './models';
 import { schema } from './mymodels';
@@ -9,6 +10,8 @@ import { selectedUserIdReducer } from './reducers';
 //import bootstrap from './bootstrap';
 import bootstrap from './mybootstrap';
 import MyApp from './myapp';
+
+const middlewares = [createLogger(), thunk];
 
 /*
 const rootReducer = combineReducers({
@@ -23,7 +26,7 @@ const rootReducer = combineReducers({
 
 // We're using `redux-logger`. Open up the console in the demo and you can inspect
 // the internal state maintained by Redux-ORM.
-const createStoreWithMiddleware = applyMiddleware(createLogger())(createStore);
+const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 
 const store = createStoreWithMiddleware(rootReducer, bootstrap(schema));
 

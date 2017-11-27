@@ -14,3 +14,12 @@ export const words = createSelector(
         return orm.Word.all().toRefArray();
     }));
     
+export const items = createSelector(
+    ormSelector,
+    schema.createSelector(orm => {
+        console.log('Running items selector');
+
+        // `.toRefArray` returns a new Array that includes
+        // direct references to each User object in the state.
+        return orm.Item.all().toRefArray();
+    }));

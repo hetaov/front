@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "redux-thunk": "^2.2.0"
   }
 }

@@ -19,5 +19,29 @@ export class Word extends ValidatingModel {
 
 Word.modelName = 'Word';
 
+export class Item extends ValidatingModel {
+    static reducer(state, action, Item) {
+        const { list, type } = action;
+        switch (type) {
+            case 'list':
+            /*
+            const state = schema.getDefaultState();
+            const session = schema.withMutations(state);
+            const { Item } = session;
+            Item.create(transformList(result.result))
+            */
+                list.map((item) => {
+                    Item.create(item)
+                });
+                break;
+            default:
+
+        }
+    }
+}
+
+Item.modelName = 'Item';
+
 export const schema = new Schema();
 schema.register(Word);
+schema.register(Item);
